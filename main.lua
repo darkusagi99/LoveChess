@@ -13,46 +13,9 @@ function love.load()
 	for row = 1, boardHeight do
 		board[row] = {} 
 		for col = 1, boardWidth do 
-			board[row][col] = 0
+			board[row][col] = nil
 		end 
 	end
-	
-	-- Init pieces
-	-- 0 -> empty
-	-- 1 -> White pawn
-	for col = 1, boardWidth do 
-		board[7][col] = 1
-	end 
-	-- 2 -> White tower
-	board[8][1] = 2
-	board[8][8] = 2
-	-- 3 -> White knight
-	board[8][2] = 2
-	board[8][7] = 2
-	-- 4 -> White bishop
-	board[8][3] = 2
-	board[8][6] = 2
-	-- 5 -> White queen
-	board[8][5] = 2
-	-- 6 -> White king
-	board[8][4] = 2
-	-- 7 -> Black pawn
-	for col = 1, boardWidth do 
-		board[2][col] = 7
-	end 
-	-- 8 -> Black tower
-	board[1][1] = 8
-	board[1][8] = 8
-	-- 9 -> Black knight
-	board[1][2] = 8
-	board[1][7] = 8
-	-- 10 -> Black bishop
-	board[1][3] = 8
-	board[1][6] = 8
-	-- 11 -> Black queen
-	board[1][5] = 8
-	-- 12 -> Black king
-	board[1][4] = 8
 	
 
 	-- Init graphics
@@ -74,11 +37,49 @@ function love.load()
 	whiteKing = love.graphics.newQuad(192, 0, 16, 32, spriteImage:getDimensions())
 	blackKing = love.graphics.newQuad(208, 0, 16, 32, spriteImage:getDimensions())
 
+	-- Init pieces
+	-- 0 -> empty
+	-- 1 -> White pawn
+	for col = 1, boardWidth do 
+		board[7][col] = whitePawn
+	end 
+	-- 2 -> White tower
+	board[8][1] = whiteTower
+	board[8][8] = whiteTower
+	-- 3 -> White knight
+	board[8][2] = whiteKnight
+	board[8][7] = whiteKnight
+	-- 4 -> White bishop
+	board[8][3] = whiteBishop
+	board[8][6] = whiteBishop
+	-- 5 -> White queen
+	board[8][5] = whiteQueen
+	-- 6 -> White king
+	board[8][4] = whiteKing
+	-- 7 -> Black pawn
+	for col = 1, boardWidth do 
+		board[2][col] = blackPawn
+	end 
+	-- 8 -> Black tower
+	board[1][1] = blackTower
+	board[1][8] = blackTower
+	-- 9 -> Black knight
+	board[1][2] = blackKnight
+	board[1][7] = blackKnight
+	-- 10 -> Black bishop
+	board[1][3] = blackBishop
+	board[1][6] = blackBishop
+	-- 11 -> Black queen
+	board[1][5] = blackQueen
+	-- 12 -> Black king
+	board[1][4] = blackKing
+
 	-- Init variables pour l'affichage
 	startX = 56
 	startY = 0 -- 16*3 + 8
 	incY = 8
 	incX = 8
+	spriteOffset = 16
 
 	-- Calcul du différentiel pour l'affichage
 	renderWidth = 128
@@ -105,10 +106,17 @@ function love.draw()
 	-- Loop on board matrix
 	for row = 1, boardHeight do
 		for col = 1, boardWidth do 
+		
+			-- Draw board
 			if ((row + col) %2 == 0) then
 				love.graphics.draw(spriteImage, blackSquare, startX + (col * incX) - (row * incX), startY + (col * incY) + (row * incY))
 			else
 				love.graphics.draw(spriteImage, whiteSquare, startX + (col * incX) - (row * incX), startY + (col * incY) + (row * incY))
+			end
+			
+			-- Draw pieces			
+			if board[row][col] ~= nil then
+				love.graphics.draw(spriteImage, board[row][col], startX + (col * incX) - (row * incX), startY + (col * incY) + (row * incY) - spriteOffset)
 			end
 			
 		end 
