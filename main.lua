@@ -23,6 +23,9 @@ function love.load()
 	blackSquare = love.graphics.newQuad(0, 16, 16, 16, spriteImage:getDimensions())
 	whiteSquare = love.graphics.newQuad(16, 16, 16, 16, spriteImage:getDimensions())
 	
+	cursorSquare = love.graphics.newQuad(224, 16, 16, 16, spriteImage:getDimensions())
+	selectionSquare = love.graphics.newQuad(240, 16, 16, 16, spriteImage:getDimensions())
+	
 	-- Init pieces Quads
 	whitePawn = love.graphics.newQuad(32, 0, 16, 32, spriteImage:getDimensions())
 	blackPawn = love.graphics.newQuad(48, 0, 16, 32, spriteImage:getDimensions())
@@ -92,6 +95,12 @@ function love.load()
 
 	-- Version
 	version = "0.001"
+	
+	-- Cursor / selection vars
+	cursorX = 1
+	cursorY = 1
+	selectionX = nil
+	selectionY = nil
 
 end
 
@@ -112,6 +121,16 @@ function love.draw()
 				love.graphics.draw(spriteImage, blackSquare, startX + (col * incX) - (row * incX), startY + (col * incY) + (row * incY))
 			else
 				love.graphics.draw(spriteImage, whiteSquare, startX + (col * incX) - (row * incX), startY + (col * incY) + (row * incY))
+			end
+			
+			-- Draw selection
+			if row == selectionX and col == selectionY then
+				love.graphics.draw(spriteImage, selectionSquare, startX + (col * incX) - (row * incX), startY + (col * incY) + (row * incY))
+			end
+			
+			-- Draw cursor
+			if row == cursorX and col == cursorY then
+				love.graphics.draw(spriteImage, cursorSquare, startX + (col * incX) - (row * incX), startY + (col * incY) + (row * incY))
 			end
 			
 			-- Draw pieces			
