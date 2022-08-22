@@ -189,5 +189,42 @@ function love.keypressed(key)
 		end
 	end 
 	
+	-- Validate / undo
+	if key == 'v' then
+		selectAndMove()	
+	end
 	
+	-- Undo
+	if key == 'b' then
+		selectionX = nil
+		selectionY = nil
+	end
+	
+	
+end
+
+
+function selectAndMove()
+
+	-- If no current selection -> select
+	if selectionX == nil and selectionY == nil then
+		-- Only selection if square not empty
+		if board[cursorX][cursorY] ~= nil then
+			selectionX = cursorX
+			selectionY = cursorY
+		end
+	else
+		-- Piece selected
+		--> Move to new position
+		board[cursorX][cursorY] = board[selectionX][selectionY]
+		
+		--> Empty old position
+		board[selectionX][selectionY] = nil
+		
+		--> Remove selection
+		selectionX = nil
+		selectionY = nil
+	
+	end
+
 end
