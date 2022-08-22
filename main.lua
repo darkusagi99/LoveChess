@@ -157,4 +157,37 @@ function love.keypressed(key)
 		love.event.quit()
 	end
 	
+	-- Moves 
+	if key == 'left' then
+		cursorY = cursorY - 1
+		if cursorY < 1 then
+			cursorY = 8
+		end
+	end 
+	
+	
+	if key == 'right' then
+		cursorY = cursorY + 1
+		if cursorY > 8 then
+			cursorY = 1
+		end
+	end 
+	
+	
+	if key == 'up' then
+		cursorX = cursorX - 1
+		if cursorX < 1 then
+			cursorX = 8
+		end
+	end 
+	
+	
+	if key == 'down' then
+		cursorX = cursorX + 1
+		if cursorX > 8 then
+			cursorX = 1
+		end
+	end 
+	
+	
 end
